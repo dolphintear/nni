@@ -86,7 +86,7 @@ res = gp_minimize(f, [(-2.0, 2.0)])
 
 ### hyperopt-sklearn
 
-[hyperopt-sklearn]是一个基于Hyperopt的scikit-learn机器学习算法模型选择框架，提供超参选择功能。相比NNI框架，除了无Web UI管理功能、不原生支持分布式环境和GPU，安装也较为复杂，以下是安装命令：
+[hyperopt-sklearn](https://github.com/hyperopt/hyperopt-sklearn)是一个基于Hyperopt的scikit-learn机器学习算法模型选择框架，提供超参选择功能。相比NNI框架，除了无Web UI管理功能、不原生支持分布式环境和GPU，安装也较为复杂，以下是安装命令：
 
 ```shell
 git clone git@github.com:hyperopt/hyperopt-sklearn.git
@@ -136,22 +136,44 @@ tuner.plot() # only works in 2D
 [Chocolate](https://github.com/AIworx-Labs/chocolate)是一个完全异步的优化框架，仅依靠数据库在工作者之间共享信息。Chocolate不使用主过程来分配任务。每个任务都是完全独立的，只能从数据库中获取信息。因此Chocolate在难以维持主过程的受控计算环境中是理想的。示例代码如下：
 
 ```python
-def himmelblau(x, y):
-    return (x**2 + y - 11)**2 + (x + y**2 - 7)**2
+import chocolate as choco
 
-space = {"x" : choco.uniform(-6, 6),
-         "y" : choco.uniform(-6, 6)}
+def objective_function(condition, x=None, y=None):
+    """An objective function returning ``1 - x`` when *condition* is 1 and 
+    ``y - 6`` when *condition* is 2.
+    
+    Raises:
+        ValueError: If condition is different than 1 or 2.
+    """
+    if condition == 1:
+        return 1 - x
+    elif condition == 2:
+        return y - 6
+    raise ValueError("condition must be 1 or 2, got {}.".format(condition))
+
+# Define the conditional search space 
+space = [
+            {"condition": 1, "x": choco.uniform(low=1, high=10)},
+            {"condition": 2, "y": choco.log(low=-2, high=2, base=10)}
+        ]
+
+# Establish a connection to a SQLite local database
 conn = choco.SQLiteConnection("sqlite:///my_db.db")
-sampler = choco.QuasiRandom(conn, space, random_state=42, skip=0)
-token, params = sampler.next()
-loss = himmelblau(**params)
-sampler.update(token, loss)
 
->>> print(token)#token用于追踪状态
-{"_chocolate_id" : 0}
+# Construct the optimizer
+sampler = choco.Bayes(conn, space)
+
+# Sample the next point
+token, params = sampler.next()
+
+# Calculate the loss for the sampled point (minimized)
+loss = objective_function(**params)
+
+# Add the loss to the database
+sampler.update(token, loss)
 ```
 
-相比NNI，Chocolate也支持分布式环境，但应用场景有限，管理也不方便。
+相比NNI，Chocolate也支持分布式环境，但应用场景有限，管理也不方便，与原代码耦合度高。
 
 ## 总结
 
