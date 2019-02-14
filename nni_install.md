@@ -5,26 +5,26 @@
 
 ## 安装
 
-1. 通过```pip install nni```命令安装
+1. 通过```pip install nni```命令安装  
 ![安装](imgs/2019-02-14-19-00-39.png)
-2. 下载NNI源码```git clone -b v0.5.1 https://github.com/Microsoft/nni.git```
+2. 下载NNI源码```git clone -b v0.5.1 https://github.com/Microsoft/nni.git```  
 ![下载NNI源码](imgs/2019-02-14-19-25-26.png)
-3. 运行mnist示例```nnictl create --config nni/examples/trials/mnist/config.yml```
+3. 运行mnist示例```nnictl create --config nni/examples/trials/mnist/config.yml```  
 ![运行mnist示例](imgs/2019-02-14-19-37-17.png)
-4. 实验结果 & Web UI
+4. 实验结果 & Web UI  
 ![运行结果](imgs/2019-02-14-21-47-32.png)
-不同Trial的结果按性能排序，点击Trial No.旁的加号可以展开该Trial所使用的一组参数。
+不同Trial的结果按性能排序，点击Trial No.旁的加号可以展开该Trial所使用的一组参数。  
 ![运行结果](imgs/2019-02-14-21-48-18.png)
-点击导航栏的Trials Detail按钮，可以得到实验详情，包括每组超参数的性能、各个超参数对性能的影响、每组参数的运行耗时等。
-![每组超参数的性能](imgs/2019-02-14-22-01-20.png)
-![各个超参数对性能的影响](imgs/2019-02-14-22-01-47.png)
-![每组参数的运行耗时](imgs/2019-02-14-22-02-24.png)
-另外，还可以查看每组参数运行的中间结果，手动终止Trial的运行：
+点击导航栏的Trials Detail按钮，可以得到实验详情，包括每组超参数的性能、各个超参数对性能的影响、每组参数的运行耗时等。  
+![每组超参数的性能](imgs/2019-02-14-22-01-20.png)  
+![各个超参数对性能的影响](imgs/2019-02-14-22-01-47.png)  
+![每组参数的运行耗时](imgs/2019-02-14-22-02-24.png)  
+另外，还可以查看每组参数运行的中间结果，手动终止Trial的运行：  
 ![控制面板](imgs/2019-02-14-22-05-47.png)
 ![中间过程](imgs/2019-02-14-22-06-33.png)
 
 ## 代码分析
-使用```colordiff nni/examples/trials/mnist/mnist_before.py nni/examples/trials/mnist/mnist.py```命令对比未使用NNI的mnist_before.py和使用nni的mnist.py文件可知，NNI框架对原代码的改动很少，只新增了5行必要代码。
+使用```colordiff nni/examples/trials/mnist/mnist_before.py nni/examples/trials/mnist/mnist.py```命令对比未使用NNI的mnist_before.py和使用nni的mnist.py文件可知，NNI框架对原代码的改动很少，只新增了5行必要代码。  
 ![代码对比](imgs/2019-02-14-22-14-53.png)
 
 以下是nni训练配置文件，可以配置最大训练时长、最大训练次数、调参算法等等，具有很大的灵活性。
