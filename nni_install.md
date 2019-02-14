@@ -1,5 +1,7 @@
 # NNI 安装记录与使用心得
 
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
 - NNI 项目地址：[https://github.com/Microsoft/nni](https://github.com/Microsoft/nni)
 - 运行环境：Windows Subsystem for Linux，python3.6.7
 
