@@ -1,0 +1,5 @@
+{
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
+    "python.pythonPath": ".env\\Scripts\\python.exe",
+    "pasteImage.path": "${currentFileDir}/imgs"
+}
