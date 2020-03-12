@@ -23,7 +23,7 @@ nni==0.5.1
 nni-sdk==0.5.1
 numpy==1.16.1
 protobuf==3.6.1
-psutil==5.5.0
+psutil==5.6.6
 PyHDFS==0.2.1
 pylint==2.2.2
 pymongo==3.7.2
